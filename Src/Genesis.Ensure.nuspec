@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Genesis.Ensure</id>
+    <version>@build.number@</version>
+    <authors>Kent Boogaart</authors>
+    <owners>Kent Boogaart</owners>
+    <licenseUrl>https://github.com/kentcb/Genesis.Ensure/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kentcb/Genesis.Ensure</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/kentcb/Genesis.Ensure/master/Art/Logo64x64.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      Genesis.Ensure is a library for application authors (not library authors) that facilitates runtime expectation assertions that can be compiled out of performance-critical builds.
+    </description>
+    <tags>.NET mono portable pcl ios android xamarin helper</tags>
+    @dependencies@
+    @references@
+  </metadata>
+</package>
