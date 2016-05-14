@@ -49,6 +49,8 @@ public void SomeMethod(DayOfWeek day)
 }
 ```
 
+**IMPORTANT:** unless your consuming assembly defines the `ENSURE` compiler symbol, all calls to `Ensure` will be elided from the built assembly. This makes it very simple to optimize out these calls for performance-critical scenarios, such as mobile applications and embedded development. 
+
 ## Who?
 
 **Genesis.Ensure** is created and maintained by [Kent Boogaart](http://kent-boogaart.com). Issues and pull requests are welcome.
