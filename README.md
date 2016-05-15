@@ -2,7 +2,11 @@
 
 # Genesis.Ensure
 
+[![Build status](https://ci.appveyor.com/api/projects/status/lu38d2kn4tmclwv4?svg=true)](https://ci.appveyor.com/project/kentcb/genesis-ensure)
+
 ## What?
+
+> All Genesis.* projects are formalizations of small pieces of functionality I find myself copying from project to project. Some are small to the point of triviality, but are time-savers nonetheless.
  
 **Genesis.Ensure** is a simple library for application authors (_not_ library authors) to facilitate asserting runtime expectations. It is delivered as a PCL targeting a wide range of platforms, including:
 
