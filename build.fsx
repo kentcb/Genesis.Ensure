@@ -9,6 +9,7 @@ open Fake.NuGetHelper
 open Fake.Testing.XUnit2
 
 // properties
+let projectName = "Genesis.Ensure"
 let semanticVersion = "1.0.0-alpha"
 let version = (>=>) @"(?<major>\d*)\.(?<minor>\d*)\.(?<build>\d*).*?" "${major}.${minor}.${build}.0" semanticVersion
 let configuration = getBuildParamOrDefault "configuration" "Release"
@@ -29,7 +30,7 @@ Target "Clean" (fun _ ->
             Targets = ["Clean"]
             Properties = ["Configuration", configuration]
         })
-        (srcDir @@ "Genesis.Ensure.sln")
+        (srcDir @@ projectName + ".sln")
 )
 
 // would prefer to use the built-in RestorePackages function, but it restores packages in the root dir (not in Src), which causes build problems
@@ -51,7 +52,7 @@ Target "Build" (fun _ ->
             Attribute.FileVersion version
             Attribute.Configuration configuration
             Attribute.Company "Kent Boogaart"
-            Attribute.Product "Genesis.Ensure"
+            Attribute.Product projectName
             Attribute.Copyright "© Copyright. Kent Boogaart."
             Attribute.Trademark ""
             Attribute.Culture ""
@@ -71,7 +72,7 @@ Target "Build" (fun _ ->
                     "Configuration", configuration
                 ]
         })
-        (srcDir @@ "Genesis.Ensure.sln")
+        (srcDir @@ projectName + ".sln")
 )
 
 Target "ExecuteUnitTests" (fun _ ->
@@ -79,7 +80,7 @@ Target "ExecuteUnitTests" (fun _ ->
         { p with
             ShadowCopy = false;
         })
-        [srcDir @@ "Genesis.Ensure.UnitTests/bin" @@ configuration @@ "Genesis.Ensure.UnitTests.dll"]
+        [srcDir @@ projectName + ".UnitTests/bin" @@ configuration @@ projectName + ".UnitTests.dll"]
 )
 
 Target "CreateArchives" (fun _ ->
@@ -94,19 +95,19 @@ Target "CreateArchives" (fun _ ->
         -- (srcDir @@ "**/*.gpState")
         -- (srcDir @@ "**/bin/**")
         -- (srcDir @@ "**/obj/**")
-        |> Zip "." (genDir @@ "Genesis.Ensure-" + semanticVersion + "-src.zip")
+        |> Zip "." (genDir @@ projectName + "-" + semanticVersion + "-src.zip")
 
     // binary archive
-    let workingDir = srcDir @@ "Genesis.Ensure/bin" @@ configuration
+    let workingDir = srcDir @@ projectName + "/bin" @@ configuration
 
-    !! (workingDir @@ "Genesis.Ensure.*")
-        |> Zip workingDir (genDir @@ "Genesis.Ensure-" + semanticVersion + "-bin.zip")
+    !! (workingDir @@ projectName + ".*")
+        |> Zip workingDir (genDir @@ projectName + "-" + semanticVersion + "-bin.zip")
 )
 
 Target "CreateNuGetPackages" (fun _ ->
     // copy files required in the NuGet
-    !! (srcDir @@ "Genesis.Ensure/bin" @@ configuration @@ "Genesis.Ensure.*")
-        |> CopyFiles (nugetDir @@ "Genesis.Ensure/lib/portable-win+net45+wp81+win8+MonoAndroid+Xamarin.iOS10+MonoTouch")
+    !! (srcDir @@ projectName + "/bin" @@ configuration @@ projectName + ".*")
+        |> CopyFiles (nugetDir @@ projectName + "/lib/portable-win+net45+wp81+win8+MonoAndroid+Xamarin.iOS10+MonoTouch")
 
     // copy source
     let sourceFiles =
@@ -120,19 +121,19 @@ Target "CreateNuGetPackages" (fun _ ->
             -- (srcDir @@ "**/bin/**")
             -- (srcDir @@ "**/obj/**")]
     sourceFiles
-        |> CopyWithSubfoldersTo (nugetDir @@ "Genesis.Ensure")
+        |> CopyWithSubfoldersTo (nugetDir @@ projectName)
 
     // create the NuGets
     NuGet (fun p ->
         {p with
-            Project = "Genesis.Ensure"
+            Project = projectName
             Version = semanticVersion
             OutputPath = nugetDir
-            WorkingDir = nugetDir @@ "Genesis.Ensure"
+            WorkingDir = nugetDir @@ projectName
             SymbolPackage = NugetSymbolPackage.Nuspec
             Publish = System.Convert.ToBoolean(deployToNuGet)
         })
-        (srcDir @@ "Genesis.Ensure.nuspec")
+        (srcDir @@ projectName + ".nuspec")
 )
 
 // build order

@@ -6,7 +6,7 @@
 
 ## What?
 
-> All Genesis.* projects are formalizations of small pieces of functionality I find myself copying from project to project. Some are small to the point of triviality, but are time-savers nonetheless.
+> All Genesis.* projects are formalizations of small pieces of functionality I find myself copying from project to project. Some are small to the point of triviality, but are time-savers nonetheless. They have a particular focus on performance with respect to mobile development, but are certainly applicable outside this domain.
  
 **Genesis.Ensure** is a simple library for application authors (_not_ library authors) to facilitate asserting runtime expectations. It is delivered as a PCL targeting a wide range of platforms, including:
 
