@@ -113,6 +113,39 @@
         }
 
         /// <summary>
+        /// Validates that a generically-typed argument is not <see langword="null"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method is useful when you need to assert that an argument value is not <see langword="null"/>, but the type of
+        /// that argument is generic. As a generic, it could be <see langword="null"/> if either it's a reference type, or if it
+        /// is of type <see cref="Nullable{T}"/>. This method deals with either case.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="T">
+        /// The type of the argument.
+        /// </typeparam>
+        /// <param name="argumentValue">
+        /// The argument value.
+        /// </param>
+        /// <param name="argumentName">
+        /// The argument name.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="argumentValue"/> is <see langword="null"/>.
+        /// </exception>
+        [Conditional("ENSURE")]
+        public static void GenericArgumentNotNull<T>(T argumentValue, string argumentName)
+        {
+            var typeInfo = typeof(T).GetTypeInfo();
+
+            if (!typeInfo.IsValueType || (typeInfo.IsGenericType && (typeInfo.GetGenericTypeDefinition() == typeof(Nullable<>))))
+            {
+                ArgumentNotNull((object)argumentValue, argumentName);
+            }
+        }
+
+        /// <summary>
         /// Validates that a <see cref="string"/> argument is not <see langword="null"/> or an empty string.
         /// </summary>
         /// <param name="argumentValue">

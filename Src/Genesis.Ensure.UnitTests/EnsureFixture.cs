@@ -52,6 +52,38 @@ namespace Genesis.Ensure.UnitTests
         }
 
         [Fact]
+        public void generic_argument_not_null_does_not_throw_for_non_null_reference_arguments()
+        {
+            Ensure.GenericArgumentNotNull(new object(), "whatever");
+            Ensure.GenericArgumentNotNull("foo", "whatever");
+            Ensure.GenericArgumentNotNull(new Uri("http://www.example.com"), "whatever");
+        }
+
+        [Fact]
+        public void generic_argument_not_null_throws_for_null_reference_arguments()
+        {
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<object>(null, "whatever"));
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<string>(null, "whatever"));
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<Uri>(null, "whatever"));
+        }
+
+        [Fact]
+        public void generic_argument_not_null_does_not_throw_for_non_null_nullable_arguments()
+        {
+            Ensure.GenericArgumentNotNull<int?>(42, "whatever");
+            Ensure.GenericArgumentNotNull<float?>(3f, "whatever");
+            Ensure.GenericArgumentNotNull<DateTime?>(DateTime.UtcNow, "whatever");
+        }
+
+        [Fact]
+        public void generic_argument_not_null_throws_for_null_nullable_arguments()
+        {
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<int?>(null, "whatever"));
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<float?>(null, "whatever"));
+            Assert.Throws<ArgumentNullException>(() => Ensure.GenericArgumentNotNull<DateTime?>(null, "whatever"));
+        }
+
+        [Fact]
         public void argument_not_null_or_empty_does_not_throw_for_non_null_and_non_empty_values()
         {
             Ensure.ArgumentNotNullOrEmpty("foo", "whatever");
