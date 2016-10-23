@@ -29,7 +29,7 @@
 The easiest way to get **Genesis.Ensure** is via [NuGet](http://www.nuget.org/packages/Genesis.Ensure/):
 
 ```PowerShell
-Install-Package Genesis.Ensure
+Install-Package Genesis.Ensure -Pre
 ```
 
 ## How?
