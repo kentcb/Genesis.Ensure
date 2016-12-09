@@ -10,7 +10,7 @@ open Fake.Testing.XUnit2
 
 // properties
 let projectName = "Genesis.Ensure"
-let semanticVersion = "1.0.5-alpha"
+let semanticVersion = "1.0.0"
 let version = (>=>) @"(?<major>\d*)\.(?<minor>\d*)\.(?<build>\d*).*?" "${major}.${minor}.${build}.0" semanticVersion
 let configuration = getBuildParamOrDefault "configuration" "Release"
 // can be set by passing: -ev deployToNuGet true
