@@ -36,8 +36,7 @@
         /// If <paramref name="argumentValue"/> is <see langword="null"/>.
         /// </exception>
         [Conditional("ENSURE")]
-        public static void ArgumentNotNull<T>(T argumentValue, string argumentName)
-            where T : class
+        public static void ArgumentNotNull(object argumentValue, string argumentName)
         {
             if (argumentValue == null)
             {
