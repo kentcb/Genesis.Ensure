@@ -5,6 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
+.vs
 
 # Build results
 
@@ -15,6 +16,10 @@ build/
 [Bb]in/
 [Oo]bj/
 Gen/
+
+# Cake
+tools/**
+!tools/packages.config
 
 # FAKE
 .fake
